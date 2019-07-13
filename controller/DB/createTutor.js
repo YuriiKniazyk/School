@@ -7,25 +7,23 @@ module.exports = async (req, res) => {
         const {name, school} = req.body;
 
         const tutor = {name, school};
-        
-        await mongoose.connect(config.mongourl, {useNewUrlParser: true}, async function (err) {
+         
+        var newTutor = new tutorModel({
+            _id: new mongoose.Types.ObjectId(),
+            name: tutor.name,
+            school: tutor.school 
+        });
 
-            if (err) throw err;       
-            var newTutor = new tutorModel({
-                _id: new mongoose.Types.ObjectId(),
-                name: tutor.name,
-                school: tutor.school 
-            });
+        await tutorModel.findOne({name: req.body.name})
+        .exec(function(err, tutor) {
+            if (!tutor) {
+                tutorModel.create(newTutor);  
+            } 
+        });
     
-            await tutorModel.findOne({name: req.body.name})
-            .exec(function(err, tutor) {
-                if (!tutor) {
-                    tutorModel.create(newTutor);  
-                } 
-            });
-        })
         res.status(200).json({succses: true});
     } 
-        catch(e){console.log(e);
+    catch(e){
+        console.log(e);
     }
 };

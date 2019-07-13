@@ -1,10 +1,9 @@
 const express = require('express');
 const app = express();
-const config = require('./controller/config');
 const mongoose = require('mongoose');
-mongoose.connect(config.mongourl, { useNewUrlParser: true });
 const opn = require('opn');
 const path = require('path');
+const config = require('./controller/config');
 const error404 = require('./controller/error404');
 const createTutor = require('./controller/DB/createTutor');
 const createStudent = require('./controller/DB/createStudent');
@@ -13,6 +12,7 @@ const allStudents = require('./controller/allStudents');
 const allTutors = require('./controller/allTutors');
 
 mongoose.set('useFindAndModify', false);
+mongoose.connect(config.mongourl, {useNewUrlParser: true});
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

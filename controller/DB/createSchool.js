@@ -7,25 +7,21 @@ module.exports = async (req, res) => {
         const {name} = req.body;
 
         const school = {name};
-        
-        // await mongoose.connect(config.mongourl, {useNewUrlParser: true}, async function (err) {
+             
+        var newSchool = new schoolModel({
+            _id: new mongoose.Types.ObjectId(),
+            name: school.name
+        });
 
-        //     if (err) throw err;       
-            var newSchool = new schoolModel({
-                _id: new mongoose.Types.ObjectId(),
-                name: school.name
-            });
-    
-            await schoolModel.findOne({name: req.body.name})
-            .exec(function(err, school) {
-                if (!school) {
-                    schoolModel.create(newSchool);  
-                } 
-            });
-        // })
+        await schoolModel.findOne({name: req.body.name})
+        .exec(function(err, school) {
+            if (!school) {
+                schoolModel.create(newSchool);  
+            } 
+        });
+
         res.status(200).json({succses: true});
-    } 
-        catch(e){
-            console.log(e);
+    } catch(e) {
+        console.log(e);
     }
 };
