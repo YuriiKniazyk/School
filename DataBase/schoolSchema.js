@@ -5,10 +5,6 @@ let schoolSchema = new Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: {
         type: String
-    },
-    tutor: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tutor'
     }
 });
 

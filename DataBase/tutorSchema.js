@@ -9,10 +9,6 @@ let tutorSchema = new Schema({
     school: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'School' 
-    },
-    student: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Student'
     }
 });
 

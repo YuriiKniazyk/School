@@ -4,28 +4,28 @@ const schoolModel = require('../../DataBase/schoolSchema');
 
 module.exports = async (req, res) => {
     try{ 
-        const {name, tutor} = req.body;
+        const {name} = req.body;
 
-        const school = {name, tutor};
+        const school = {name};
         
-        await mongoose.connect(config.mongourl, {useNewUrlParser: true}, async function (err) {
+        // await mongoose.connect(config.mongourl, {useNewUrlParser: true}, async function (err) {
 
-            if (err) throw err;       
+        //     if (err) throw err;       
             var newSchool = new schoolModel({
                 _id: new mongoose.Types.ObjectId(),
-                name: school.name,
-                tutor: school.tutor
+                name: school.name
             });
     
-            await schoolModel.find({name: req.body.name})
+            await schoolModel.findOne({name: req.body.name})
             .exec(function(err, school) {
                 if (!school) {
                     schoolModel.create(newSchool);  
                 } 
             });
-        })
+        // })
         res.status(200).json({succses: true});
     } 
-        catch(e){console.log(e);
+        catch(e){
+            console.log(e);
     }
 };

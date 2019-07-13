@@ -4,15 +4,9 @@ const tutorModel = require('../../DataBase/tutorSchema');
 
 module.exports = async (req, res) => {
     try{ 
-        const {name,
-            student,
-            school} = req.body;
+        const {name, school} = req.body;
 
-        const tutor = {
-            name,
-            student,
-            school         
-        };
+        const tutor = {name, school};
         
         await mongoose.connect(config.mongourl, {useNewUrlParser: true}, async function (err) {
 
@@ -20,7 +14,6 @@ module.exports = async (req, res) => {
             var newTutor = new tutorModel({
                 _id: new mongoose.Types.ObjectId(),
                 name: tutor.name,
-                student: turor.student,
                 school: tutor.school 
             });
     

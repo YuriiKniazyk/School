@@ -13,6 +13,7 @@ module.exports = async (req, res) => {
             data,
             tutor         
         };
+        console.log(student);
         
         await mongoose.connect(config.mongourl, {useNewUrlParser: true}, async function (err) {
 
@@ -24,8 +25,8 @@ module.exports = async (req, res) => {
                 tutor: student.tutor
             });
     
-            await studentModel.find({name: req.body.name})
-            .exec(function(err, tutor) {
+            await studentModel.findOne({name: req.body.name})
+            .exec(function(err, student) {
                 if (!student) {
                     studentModel.create(newStudent);  
                 } 
